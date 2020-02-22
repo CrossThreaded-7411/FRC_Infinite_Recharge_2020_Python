@@ -109,10 +109,11 @@ while(True):
 		x,y,w,h = cv2.boundingRect(contours[largestIndex]);
 		posX = int(x + (w/2));
 		posY = int(y + (h/2));
-		cv2.circle(frame, (posX, posY), 5, (255,255,255), -1);
-    	polyApprox = cv2.approxPolyDP(contours[largestIndex], 0.01 * cv2.arcLength(contours[largestIndex], True), True)
-    	print(len(polyApprox))
+		polyApprox = cv2.approxPolyDP(contours[largestIndex], 0.04* cv2.arcLength(contours[largestIndex], True), True)
+		if(len(polyApprox) >= 5):
+			cv2.circle(frame, (posX, posY), 5, (255,255,255), -1);
 
+		
 
 	cv2.imshow("Display", frame);
 
