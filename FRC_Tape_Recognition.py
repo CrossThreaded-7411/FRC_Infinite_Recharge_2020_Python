@@ -50,7 +50,7 @@ lowerBoundHSV = np.array([80, 0, 50]);
 upperBoundHSV = np.array([150, 110, 170]);
 
 cv2.setMouseCallback('Display', printValues);
-dilationKernel = cv2.getStructuringElement(cv2.MORPH_RECT, (2,2));
+openingKernel = cv2.getStructuringElement(cv2.MORPH_RECT, (2,2));
 secondDilationKernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (13,13));
 
 while(True):
@@ -67,9 +67,9 @@ while(True):
 
 
 	#dilatedVersion = cv2.dilate(maskedVersion, dilationKernel);
-	dilatedVersion = cv2.morphologyEx(maskedVersion, cv2.MORPH_OPEN, dilationKernel);
+	openedVersion = cv2.morphologyEx(maskedVersion, cv2.MORPH_OPEN, openingKernel);
 
-	edged = cv2.Canny(dilatedVersion, 100, 200);
+	edged = cv2.Canny(openedVersion, 100, 200);
 
 	dilatedEdges = cv2.dilate(edged, secondDilationKernel);
 
@@ -104,12 +104,16 @@ while(True):
 
 
 	if largestIndex >= 0:
-		cv2.drawContours(frame, contours[largestIndex], -1, (255,255,255), 4);
+		cv2.drawContours(frame, contours[largestIndex], -1, (255,255,255), 2);
 		#print(cv2.contourArea(contours[largestIndex]))
 		x,y,w,h = cv2.boundingRect(contours[largestIndex]);
 		posX = int(x + (w/2));
 		posY = int(y + (h/2));
 		cv2.circle(frame, (posX, posY), 5, (255,255,255), -1);
+      polyApprox = cv2.approxPolyDP(contours[largestIndex], 0.01 * cv2.arcLength(contours[largestIndex], True), True)
+      print(len(polyApprox))
+
+
 	cv2.imshow("Display", frame);
 
 
