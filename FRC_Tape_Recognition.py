@@ -110,8 +110,8 @@ while(True):
 		posX = int(x + (w/2));
 		posY = int(y + (h/2));
 		cv2.circle(frame, (posX, posY), 5, (255,255,255), -1);
-      polyApprox = cv2.approxPolyDP(contours[largestIndex], 0.01 * cv2.arcLength(contours[largestIndex], True), True)
-      print(len(polyApprox))
+    	polyApprox = cv2.approxPolyDP(contours[largestIndex], 0.01 * cv2.arcLength(contours[largestIndex], True), True)
+    	print(len(polyApprox))
 
 
 	cv2.imshow("Display", frame);
