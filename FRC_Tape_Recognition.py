@@ -6,13 +6,16 @@ def printValues(event, x, y, flags, param):
 	global mouseX, mouseY;
 	if event == cv2.EVENT_LBUTTONDBLCLK:
 		print(f"x: {x} y: {y}");
-		vals = hsv[y,x];
+		vals = frame[y,x]; #Prints bgr values, regardless of the image shown
+		#vals = hsv[y,x];  #Prints hsv values, regardless of the image shown
 		print(f"vals:{vals}");
 
 
 
 print ("here1")
-inputStream = cv2.VideoCapture("http://roborio-7411-frc.local:1181/?action=stream")
+#inputStream = cv2.VideoCapture("http://roborio-7411-frc.local:1181/?action=stream")
+inputStream = cv2.VideoCapture("http://10.74.11.2:1181/?action=stream")
+
 print ("here2")
 screen_res = 1920, 1080;
 
@@ -115,7 +118,7 @@ while(True):
 
 		
 
-	cv2.imshow("Display", frame);
+	cv2.imshow("Display", maskedVersion);
 
 
 	hsvVersion = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
