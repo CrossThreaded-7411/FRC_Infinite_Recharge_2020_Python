@@ -46,7 +46,7 @@ print ("here3")
 #lowerBoundRGB = np.array([0, 180, 75]);
 #upperBoundRGB = np.array([15, 255, 115]);
 
-lowerBoundRGB = np.array([20, 30, 0]);
+lowerBoundRGB = np.array([0, 10, 0]);
 upperBoundRGB = np.array([210, 256, 140]);
 
 lowerBoundHSV = np.array([80, 0, 50]);
@@ -114,14 +114,15 @@ while(True):
 		posY = int(y + (h/2));
 		polyApprox = cv2.approxPolyDP(contours[largestIndex], 0.04* cv2.arcLength(contours[largestIndex], True), True)
 		if(len(polyApprox) >= 5):
+			#print(len(polyApprox));
 			cv2.circle(frame, (posX, posY), 5, (255,255,255), -1);
-
-		
+			deltaX = (inputImage.shape[1]/2) - posX
+			smartDashboard.putNumber('deltaX', deltaX)
+	else:
+		smartDashboard.putNumber('deltaX', 0)
 
 	cv2.imshow("Display", maskedVersion);
-
-
-	hsvVersion = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+	frameVersion = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
 	#cv2.imwrite("testFrameHSV.jpg", hsvVersion);
 	#cv2.imwrite("testFrameRGB.jpg", frame);
